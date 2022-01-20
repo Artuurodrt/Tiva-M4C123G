@@ -26,9 +26,10 @@ SOFTWARE.*/
 #define SYSCTL_RCGCPWM_R        (*((volatile uint32_t *)0x400FE640))
 
  /*
+  * Register: Pulse Width Modulator Run Mode Clock Gating Control (RCGCPWM)
   *
   * Parameters   : Module - PWM Module 0/ PWM Module 1
-  *                Enable - PWM Module (Enabled/Disabled)
+  *                Enable - PWM Module (Enabled(1)/Disabled(0))
   *
   * Return Value : Nothing
   *
@@ -36,28 +37,32 @@ SOFTWARE.*/
   *
   *    The PWM_Module_RM function, provides software the capability
   *    to enable/disable a clock for the PWM modules in Run mode.
-  *
   */
-void PWM_Module_RM(bool Module, bool Enable){
+void PWM_Module_RM(_Bool Module, _Bool Enable);
 
-    if(Module == 1u){
-        if(Enable == 1u){
-            SYSCTL_RCGCPWM_R |= (1u << 1);
-        }
-        else{
-            SYSCTL_RCGCPWM_R &= ~(0x00000010);
-        }
 
-    }
-    else{
-        if(Enable == 1u){
-            SYSCTL_RCGCPWM_R |= (1u << 0);
-        }
-        else{
-            SYSCTL_RCGCPWM_R &= ~(0x00000001);
-        }
-    }
-}
+/*
+ * Register: General-Purpose Input/Output Run Mode Clock Gating Control (RCGCGPIO)
+ *
+ * Parameters   : Port - GPIO Port
+ *                 | 1 - Port A |
+ *                 | 2 - Port B |
+ *                 | 3 - Port C |
+ *                 | 4 - Port D |
+ *                 | 5 - Port E |
+ *                Enable - Provide a clock to GPIO Port (Enabled(1)/Disabled(0))
+ *
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ *    The GPIO_Module_RM function, provides software the capability
+ *    to enable/disable a clock for the GPIO modules in Run mode.
+ */
+void GPIO_Module_RM(uint8_t Port, _Bool Enable);
+
+
+
 
 
 

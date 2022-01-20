@@ -2,7 +2,7 @@
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdio.h"
-#include "math.h"
+#include "pwm.h"
 
 void delayMs(int n);
 
@@ -10,14 +10,11 @@ int x = 15999;
 
 int main(){
 
-/*1. Enable the PWM clock by writing a value of 0x0010.0000 to the RCGC0 register in the System Control module*/
+    /*Enable PWM Module 0*/
+    PWM_Module_RM(0,1);
 
-    SYSCTL_RCGC0_R = (1u << 20);
-
-/*2. Enable the clock to the appropriate GPIO module via the RCGC2 register in the System Control module
- The following instruction enables Port B Clock Gating Control*/
-
-    SYSCTL_RCGC2_R = (1u << 1);
+    /*Enable Port B Clock Gating Control*/
+    GPIO_Module_RM(2u,1);
 
     /*5. Configure the Run-Mode Clock Configuration (RCC) register in the System Control module
     to use the PWM divide (USEPWMDIV) and set the divider (PWMDIV) to divide by 2 (000)*/
