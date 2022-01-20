@@ -20,56 +20,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-#include "inc/tm4c123gh6pm.h"
-#include <stdint.h>
+#ifndef LIBDESIGN_H_
+#define LIBDESIGN_H_
 
-#define PORTA 0x01
-#define PORTB 0x02
-#define PORTC 0x04
-#define PORTD 0x08
-#define PORTE 0x10
-#define PORTF 0x20
+/*GPIO Modules*/
+#define GPIO_PORTA 0x01
+#define GPIO_PORTB 0x02
+#define GPIO_PORTC 0x04
+#define GPIO_PORTD 0x08
+#define GPIO_PORTE 0x10
+#define GPIO_PORTF 0x20
 
+/*Enable/Disable*/
+#define ENABLE 0x01
+#define DISABLE 0x00
 
-void PWM_Module_RM(_Bool Module, _Bool Enable){
+/*PWM Module*/
+#define PWM_MODULE_0 0x00
+#define PWM_MODULE_1 0x01
 
-    if(Module == 1u){
-        if(Enable == 1u){
-            SYSCTL_RCGCPWM_R |= (1u << 1);
-        }
-        else{
-            SYSCTL_RCGCPWM_R &= ~(0x00000010);
-        }
-
-    }
-    else{
-        if(Enable == 1u){
-            SYSCTL_RCGCPWM_R |= (1u << 0);
-        }
-        else{
-            SYSCTL_RCGCPWM_R &= ~(0x00000001);
-        }
-    }
-}
-
-
-void GPIO_Module_RM(uint8_t Port, _Bool Enable){
-
-
-   if((Port == PORTA)|(Port == PORTB)|(Port == PORTC)|(Port == PORTD)|(Port == PORTE)|(Port == PORTF)){
-
-    if(Enable == 1u){
-    SYSCTL_RCGCGPIO_R |= Port;
-    }
-    else{
-        SYSCTL_RCGCGPIO_R &= ~Port;
-    }
-   }
-}
-
-
-
-
-
-
-
+#endif /* LIBDESIGN_H_ */

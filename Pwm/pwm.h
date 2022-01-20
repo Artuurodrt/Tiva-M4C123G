@@ -45,11 +45,12 @@ void PWM_Module_RM(_Bool Module, _Bool Enable);
  * Register: General-Purpose Input/Output Run Mode Clock Gating Control (RCGCGPIO)
  *
  * Parameters   : Port - GPIO Port
- *                 | 1 - Port A |
- *                 | 2 - Port B |
- *                 | 3 - Port C |
- *                 | 4 - Port D |
- *                 | 5 - Port E |
+ *                 | 0x01 - Port A |
+ *                 | 0x02 - Port B |
+ *                 | 0x04 - Port C |
+ *                 | 0x08 - Port D |
+ *                 | 0x10 - Port E |
+ *                 | 0x20 - Port F |
  *                Enable - Provide a clock to GPIO Port (Enabled(1)/Disabled(0))
  *
  * Return Value : Nothing

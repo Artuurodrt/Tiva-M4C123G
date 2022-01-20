@@ -3,6 +3,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "pwm.h"
+#include "libdesign.h"
 
 void delayMs(int n);
 
@@ -11,10 +12,10 @@ int x = 15999;
 int main(){
 
     /*Enable PWM Module 0*/
-    PWM_Module_RM(0,1);
+    PWM_Module_RM(PWM_MODULE_0,ENABLE);
 
     /*Enable Port B Clock Gating Control*/
-    GPIO_Module_RM(2u,1);
+    GPIO_Module_RM(GPIO_PORTB,ENABLE);
 
     /*5. Configure the Run-Mode Clock Configuration (RCC) register in the System Control module
     to use the PWM divide (USEPWMDIV) and set the divider (PWMDIV) to divide by 2 (000)*/
