@@ -23,7 +23,9 @@ SOFTWARE.*/
 #ifndef LIBDESIGN_H_
 #define LIBDESIGN_H_
 
-/*GPIO Modules*/
+/*GPIO Modules
+ * Function: GPIO_Module_RM
+ */
 #define GPIO_PORTA 0x01
 #define GPIO_PORTB 0x02
 #define GPIO_PORTC 0x04
@@ -35,8 +37,34 @@ SOFTWARE.*/
 #define ENABLE 0x01
 #define DISABLE 0x00
 
-/*PWM Module*/
+/*PWM Module
+ * Function: PWM_Module_RM
+ */
 #define PWM_MODULE_0 0x00
 #define PWM_MODULE_1 0x01
+
+/*PWM Clock (RCC Register - USEPWMDIV)
+ * Function: RCC_PWM_Clock
+ */
+#define SYSTEM_CLOCK 0x00
+#define PWM_CLOCK_DIVISOR 0x01
+
+
+/* PWM Unit Clock Divisor (RCC Register - PWMDIV)
+ * Function: RCC_PWM_Clock_Div
+ *
+                         Divisor*/
+#define DIV_2 0x00    /*   /2   */
+#define DIV_4 0x01    /*   /4   */
+#define DIV_8 0x02    /*   /8   */
+#define DIV_16 0x03   /*   /16  */
+#define DIV_32 0x04   /*   /32  */
+#define DIV_64 0x05   /*   /64  */
+#define DIV2_64 0x06  /*   /64  */
+#define DIV3_64 0x07  /*   /64  */
+
+
+
+
 
 #endif /* LIBDESIGN_H_ */

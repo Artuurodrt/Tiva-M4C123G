@@ -68,6 +68,27 @@ void GPIO_Module_RM(uint8_t Port, _Bool Enable){
 }
 
 
+void RCC_PWM_Clock(_Bool Pwm_Clock){
+
+    if(Pwm_Clock == 0){
+        SYSCTL_RCC_R &= ~0x00100000;
+    }
+    else{
+        SYSCTL_RCC_R |=  0x00100000;
+    }
+
+}
+
+void RCC_PWM_Clock_Div(uint8_t Pwm_Div){
+    if(Pwm_Div <= 0x07){
+        SYSCTL_RCC_R &= ~( (1u << 17) | (1u << 18) | (1u << 19) ); /*Clear PWMDIV bits - (PWMDIV) divides by 2 (000)*/
+        SYSCTL_RCC_R |= (Pwm_Div << 17);
+    }
+}
+
+001
+010
+
 
 
 

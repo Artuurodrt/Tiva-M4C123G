@@ -63,8 +63,35 @@ void PWM_Module_RM(_Bool Module, _Bool Enable);
 void GPIO_Module_RM(uint8_t Port, _Bool Enable);
 
 
+/*
+ * Register: Run-Mode Clock Configuration (RCC)
+ *
+ * Parameters   : Pwm_Clock - System Clock/PWM Clock Divider
+ *
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ *    The RCC_PWM_Clock function enables PWM Clock
+ *    .
+ */
+void RCC_PWM_Clock(_Bool Pwm_Clock);
 
 
-
+/*
+ * Register: Run-Mode Clock Configuration (RCC)
+ *
+ * Parameters   : Pwm_Div - PWM Unit Clock Divisor
+ *
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ *    The RCC_PWM_Div function specifies the binary divisor used to
+ *    predivide the system clock down for use as the timing
+ *    reference for the PWM module.
+ *    .
+ */
+void RCC_PWM_Clock_Div(uint8_t Pwm_Div);
 
 #endif /* PWM_H_ */

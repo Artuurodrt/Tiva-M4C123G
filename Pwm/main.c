@@ -17,14 +17,9 @@ int main(){
     /*Enable Port B Clock Gating Control*/
     GPIO_Module_RM(GPIO_PORTB,ENABLE);
 
-    /*5. Configure the Run-Mode Clock Configuration (RCC) register in the System Control module
-    to use the PWM divide (USEPWMDIV) and set the divider (PWMDIV) to divide by 2 (000)*/
+    /*The system clock is the source for the PWM clock*/
+    RCC_PWM_Clock(SYSTEM_CLOCK);
 
-   // SYSCTL_RCC_R |= (1u << 20); /* Enable PWM Clock Divisor */
-
-   // SYSCTL_RCC_R &= ~( (1u << 17) | (1u << 18) | (1u << 19) ); /* Set PWM Unit Clock Divisor to /2 */
-
-    SYSCTL_RCC_R &= ~0x00100000;
 /*3. In the GPIO module, enable the appropriate pins for their alternate function using the GPIOAFSEL register*/
 
     GPIO_PORTB_AFSEL_R = (1u << 6);    /* PB6 alternative function for M0PWM0 */
