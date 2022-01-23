@@ -94,4 +94,27 @@ void RCC_PWM_Clock(_Bool Pwm_Clock);
  */
 void RCC_PWM_Clock_Div(uint8_t Pwm_Div);
 
+
+/*
+ * Register: GPIO Alternate Function Select (GPIOAFSEL)
+ *
+ * Parameters   : Port - GPIO Port (A-F)
+ *                GPIO_Line - Associated pin functions as a GPIO (0)/ Associated pin functions as a peripheral signal (1)
+ *                Bus - Advanced Peripheral Bus (APB)/Advanced High-Performance Bus (AHB)
+ *                Mode - Write/Clear bits
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ *    The GPIO_AF_Select function sets the mode control select register.
+ *    If a bit is clear, the pin is used as a GPIO and is controlled by the GPIO registers.
+ *    Setting a bit in this register configures the corresponding GPIO
+ *    line to be controlled by an associated peripheral.
+ *    .
+ */
+void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode);
+
+
+
+
 #endif /* PWM_H_ */

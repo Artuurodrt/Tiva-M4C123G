@@ -22,6 +22,7 @@ SOFTWARE.*/
 
 #include "inc/tm4c123gh6pm.h"
 #include <stdint.h>
+#include "libdesign.h"
 
 #define PORTA 0x01
 #define PORTB 0x02
@@ -34,7 +35,7 @@ SOFTWARE.*/
 void PWM_Module_RM(_Bool Module, _Bool Enable){
 
     if(Module == 1u){
-        if(Enable == 1u){
+        if(Enable == ENABLE){
             SYSCTL_RCGCPWM_R |= (1u << 1);
         }
         else{
@@ -43,7 +44,7 @@ void PWM_Module_RM(_Bool Module, _Bool Enable){
 
     }
     else{
-        if(Enable == 1u){
+        if(Enable == ENABLE){
             SYSCTL_RCGCPWM_R |= (1u << 0);
         }
         else{
@@ -58,7 +59,7 @@ void GPIO_Module_RM(uint8_t Port, _Bool Enable){
 
    if((Port == PORTA)|(Port == PORTB)|(Port == PORTC)|(Port == PORTD)|(Port == PORTE)|(Port == PORTF)){
 
-    if(Enable == 1u){
+    if(Enable == ENABLE){
     SYSCTL_RCGCGPIO_R |= Port;
     }
     else{
@@ -70,7 +71,7 @@ void GPIO_Module_RM(uint8_t Port, _Bool Enable){
 
 void RCC_PWM_Clock(_Bool Pwm_Clock){
 
-    if(Pwm_Clock == 0){
+    if(Pwm_Clock == SYSTEM_CLOCK){
         SYSCTL_RCC_R &= ~0x00100000;
     }
     else{
@@ -86,10 +87,61 @@ void RCC_PWM_Clock_Div(uint8_t Pwm_Div){
     }
 }
 
-001
-010
+void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode){
 
-
+    if(Mode == WRITE_MODE){
+    /*GPIO AFSEL PORT A*/
+    if(Port == GPIO_PORT_A){
+        (Bus == APB_BUS) ?  (GPIO_PORTA_AFSEL_R |= associated_Pin) : (GPIO_PORTA_AHB_AFSEL_R |= associated_Pin);
+         }
+    /*GPIO AFSEL PORT B*/
+    else if(Port == GPIO_PORT_B){
+        (Bus == APB_BUS) ?  (GPIO_PORTB_AFSEL_R |= associated_Pin) : (GPIO_PORTB_AHB_AFSEL_R |= associated_Pin);
+        }
+    /*GPIO AFSEL PORT C*/
+    else if(Port == GPIO_PORT_C){
+        (Bus == APB_BUS) ?  (GPIO_PORTC_AFSEL_R |= associated_Pin) : (GPIO_PORTC_AHB_AFSEL_R |= associated_Pin);
+        }
+    /*GPIO AFSEL PORT D*/
+    else if(Port == GPIO_PORT_D){
+        (Bus == APB_BUS) ?  (GPIO_PORTD_AFSEL_R |= associated_Pin) : (GPIO_PORTD_AHB_AFSEL_R |= associated_Pin);
+        }
+    /*GPIO AFSEL PORT E*/
+    else if(Port == GPIO_PORT_E){
+        (Bus == APB_BUS) ?  (GPIO_PORTE_AFSEL_R |= associated_Pin) : (GPIO_PORTE_AHB_AFSEL_R |= associated_Pin);
+        }
+    /*GPIO AFSEL PORT F*/
+    else if(Port == GPIO_PORT_F){
+        (Bus == APB_BUS) ?  (GPIO_PORTF_AFSEL_R |= associated_Pin) : (GPIO_PORTF_AHB_AFSEL_R |= associated_Pin);
+        }
+    }
+    else{
+     /*Clear bits of GPIO AFSEL PORT A*/
+     if(Port == GPIO_PORT_A){
+        (Bus == APB_BUS) ?  (GPIO_PORTA_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTA_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+     /*Clear bits of GPIO AFSEL PORT B*/
+     else if(Port == GPIO_PORT_B){
+        (Bus == APB_BUS) ?  (GPIO_PORTB_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTB_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+     /*Clear bits of GPIO AFSEL PORT C*/
+     else if(Port == GPIO_PORT_C){
+        (Bus == APB_BUS) ?  (GPIO_PORTC_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTC_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+     /*Clear bits of GPIO AFSEL PORT D*/
+     else if(Port == GPIO_PORT_D){
+        (Bus == APB_BUS) ?  (GPIO_PORTD_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTD_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+     /*Clear bits of GPIO AFSEL PORT E*/
+     else if(Port == GPIO_PORT_E){
+        (Bus == APB_BUS) ?  (GPIO_PORTE_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTE_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+     /*Clear bits of GPIO AFSEL PORT F*/
+     else if(Port == GPIO_PORT_F){
+        (Bus == APB_BUS) ?  (GPIO_PORTF_AFSEL_R &= ~(associated_Pin)) : (GPIO_PORTF_AHB_AFSEL_R &= ~(associated_Pin));
+         }
+    }
+}
 
 
 

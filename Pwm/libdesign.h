@@ -64,7 +64,31 @@ SOFTWARE.*/
 #define DIV3_64 0x07  /*   /64  */
 
 
+/*GPIO Ports (GPIOAFSEL Register)*/
+#define GPIO_PORT_A 0x01
+#define GPIO_PORT_B 0x02
+#define GPIO_PORT_C 0x03
+#define GPIO_PORT_D 0x04
+#define GPIO_PORT_E 0x05
+#define GPIO_PORT_F 0x06
 
+/*Bus (APB/AHB)*/
+#define APB_BUS 0x00
+#define AHB_BUS 0x01
+
+/*GPIO Associated Pins (0-7)*/
+#define AS_PIN_0 0x01
+#define AS_PIN_1 0x02
+#define AS_PIN_2 0x04
+#define AS_PIN_3 0x08
+#define AS_PIN_4 0x10
+#define AS_PIN_5 0x20
+#define AS_PIN_6 0x40
+#define AS_PIN_7 0x80
+
+/*Clear/Write Mode*/
+#define WRITE_MODE 0x00
+#define CLEAR_MODE 0x01
 
 
 #endif /* LIBDESIGN_H_ */

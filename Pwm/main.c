@@ -20,9 +20,9 @@ int main(){
     /*The system clock is the source for the PWM clock*/
     RCC_PWM_Clock(SYSTEM_CLOCK);
 
-/*3. In the GPIO module, enable the appropriate pins for their alternate function using the GPIOAFSEL register*/
+    /* PB6 alternative function for M0PWM0 */
+    GPIO_AF_Select(GPIO_PORT_B, AS_PIN_6, APB_BUS, WRITE_MODE);
 
-    GPIO_PORTB_AFSEL_R = (1u << 6);    /* PB6 alternative function for M0PWM0 */
 
 /*4. Configure the PMCn fields in the GPIOPCTL register to assign the PWM signals to the appropriate pins*/
 
