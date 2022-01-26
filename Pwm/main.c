@@ -26,8 +26,9 @@ int main(){
 
 /*4. Configure the PMCn fields in the GPIOPCTL register to assign the PWM signals to the appropriate pins*/
 
-    GPIO_PORTB_PCTL_R &= ~0x0F000000;
-    GPIO_PORTB_PCTL_R |= 0x04000000;
+    //GPIO_PORTB_PCTL_R &= ~0x0F000000;
+    //GPIO_PORTB_PCTL_R |= 0x04000000;
+    GPIO_Port_Ctl(GPIO_PORT_B,PMC6, 0x04,APB_BUS);
 
     // Enable the GPIO pins (p.682)
     GPIO_PORTB_DEN_R |= (1u << 6);

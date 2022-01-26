@@ -91,4 +91,15 @@ SOFTWARE.*/
 #define CLEAR_MODE 0x01
 
 
+/*Port Mux Control (GPIOPCTL Register)*/
+
+#define PMC0 0x00
+#define PMC1 0x04
+#define PMC2 0x08
+#define PMC3 0x0C
+#define PMC4 0x10
+#define PMC5 0x14
+#define PMC6 0x18
+#define PMC7 0x1C
+
 #endif /* LIBDESIGN_H_ */

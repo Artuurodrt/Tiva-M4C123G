@@ -114,7 +114,21 @@ void RCC_PWM_Clock_Div(uint8_t Pwm_Div);
  */
 void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode);
 
-
-
+/*
+ * Register: GPIO Port Control (GPIOPCTL)
+ *
+ * Parameters   : PMCn - Port Mux Control (PMC0 - PMC7)
+ *                Field - Field to control the configuration for GPIO pin
+ *                Bus - Advanced Peripheral Bus (APB)/Advanced High-Performance Bus (AHB)
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ * The GPIOPCTL register is used in conjunction with the GPIOAFSEL
+ * register and selects the specific peripheral signal for
+ * each GPIO pin when using the alternate function mode.
+ *
+ */
+void GPIO_Port_Ctl(uint8_t port, uint8_t PMCn, uint8_t Field,_Bool Bus);
 
 #endif /* PWM_H_ */

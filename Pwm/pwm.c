@@ -31,6 +31,20 @@ SOFTWARE.*/
 #define PORTE 0x10
 #define PORTF 0x20
 
+#define PORTA_APB_ADDRESS 0x4000452C
+#define PORTB_APB_ADDRESS 0x4000552C
+#define PORTC_APB_ADDRESS 0x4000652C
+#define PORTD_APB_ADDRESS 0x4000752C
+#define PORTE_APB_ADDRESS 0x4002452C
+#define PORTF_APB_ADDRESS 0x4002552C
+
+#define PORTA_AHB_ADDRESS 0x4005852C
+#define PORTB_AHB_ADDRESS 0x4005952C
+#define PORTC_AHB_ADDRESS 0x4005A52C
+#define PORTD_AHB_ADDRESS 0x4005B52C
+#define PORTE_AHB_ADDRESS 0x4005C52C
+#define PORTF_AHB_ADDRESS 0x4005D52C
+
 
 void PWM_Module_RM(_Bool Module, _Bool Enable){
 
@@ -144,5 +158,94 @@ void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode)
 }
 
 
+void GPIO_Port_Ctl(uint8_t Port,uint8_t PMCn, uint8_t Field,_Bool Bus){
 
+    uint32_t GPIO_PORTX_PCTL_R = 0x00;
+
+    if( Port == GPIO_PORT_A || Port == GPIO_PORT_B || Port == GPIO_PORT_C || Port == GPIO_PORT_D
+     || Port == GPIO_PORT_E || Port == GPIO_PORT_F ){
+
+      if(Bus == APB_BUS){
+        switch(Port){
+        case GPIO_PORT_A:
+            GPIO_PORTX_PCTL_R = PORTA_APB_ADDRESS;
+        break;
+        case GPIO_PORT_B:
+            GPIO_PORTX_PCTL_R = PORTB_APB_ADDRESS;
+        break;
+        case GPIO_PORT_C:
+            GPIO_PORTX_PCTL_R = PORTC_APB_ADDRESS;
+        break;
+        case GPIO_PORT_D:
+            GPIO_PORTX_PCTL_R = PORTD_APB_ADDRESS;
+        break;
+        case GPIO_PORT_E:
+            GPIO_PORTX_PCTL_R = PORTE_APB_ADDRESS;
+        break;
+        case GPIO_PORT_F:
+            GPIO_PORTX_PCTL_R = PORTF_APB_ADDRESS;
+        break;
+        default:
+        break;
+        }
+      }
+      else{
+          switch(Port){
+          case GPIO_PORT_A:
+              GPIO_PORTX_PCTL_R = PORTA_AHB_ADDRESS;
+          break;
+          case GPIO_PORT_B:
+              GPIO_PORTX_PCTL_R = PORTB_AHB_ADDRESS;
+          break;
+          case GPIO_PORT_C:
+              GPIO_PORTX_PCTL_R = PORTC_AHB_ADDRESS;
+          break;
+          case GPIO_PORT_D:
+              GPIO_PORTX_PCTL_R = PORTD_AHB_ADDRESS;
+          break;
+          case GPIO_PORT_E:
+              GPIO_PORTX_PCTL_R = PORTE_AHB_ADDRESS;
+          break;
+          case GPIO_PORT_F:
+              GPIO_PORTX_PCTL_R = PORTF_AHB_ADDRESS;
+          break;
+          default:
+          break;
+          }
+      }
+            if(PMCn == PMC0){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x0000000F;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC0);
+            }
+            else if(PMCn == PMC1){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x000000F0;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC1);
+            }
+            else if(PMCn == PMC2){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x00000F00;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC2);
+            }
+            else if(PMCn == PMC3){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x0000F000;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC3);
+            }
+            else if(PMCn == PMC4){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x000F0000;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC4);
+            }
+            else if(PMCn == PMC5){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x00F00000;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC5);
+            }
+            else if(PMCn == PMC6){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0x0F000000;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC6);
+            }
+            else if(PMCn == PMC7){
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) &= ~0xF0000000;
+                (*((volatile  uint32_t*)GPIO_PORTX_PCTL_R)) |= (Field<<PMC7);
+            }
+      }
+
+}
 
