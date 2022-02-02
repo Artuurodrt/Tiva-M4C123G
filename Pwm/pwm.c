@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-#include "inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include <stdint.h>
 #include "libdesign.h"
 
@@ -31,19 +31,28 @@ SOFTWARE.*/
 #define PORTE 0x10
 #define PORTF 0x20
 
-#define PORTA_APB_ADDRESS 0x4000452C
-#define PORTB_APB_ADDRESS 0x4000552C
-#define PORTC_APB_ADDRESS 0x4000652C
-#define PORTD_APB_ADDRESS 0x4000752C
-#define PORTE_APB_ADDRESS 0x4002452C
-#define PORTF_APB_ADDRESS 0x4002552C
+#define PORTA_GPIO_APB_ADDRESS 0x40004000
+#define PORTB_GPIO_APB_ADDRESS 0x40005000
+#define PORTC_GPIO_APB_ADDRESS 0x40006000
+#define PORTD_GPIO_APB_ADDRESS 0x40007000
+#define PORTE_GPIO_APB_ADDRESS 0x40024000
+#define PORTF_GPIO_APB_ADDRESS 0x40025000
 
-#define PORTA_AHB_ADDRESS 0x4005852C
-#define PORTB_AHB_ADDRESS 0x4005952C
-#define PORTC_AHB_ADDRESS 0x4005A52C
-#define PORTD_AHB_ADDRESS 0x4005B52C
-#define PORTE_AHB_ADDRESS 0x4005C52C
-#define PORTF_AHB_ADDRESS 0x4005D52C
+#define PORTA_GPIO_AHB_ADDRESS 0x40058000
+#define PORTB_GPIO_AHB_ADDRESS 0x40059000
+#define PORTC_GPIO_AHB_ADDRESS 0x4005A000
+#define PORTD_GPIO_AHB_ADDRESS 0x4005B000
+#define PORTE_GPIO_AHB_ADDRESS 0x4005C000
+#define PORTF_GPIO_AHB_ADDRESS 0x4005D000
+
+#define GPIO_CTL_OFFSET 0x52C
+#define GPIO_DEN_OFFSET 0x51C
+
+
+
+
+
+
 
 
 void PWM_Module_RM(_Bool Module, _Bool Enable){
@@ -168,22 +177,22 @@ void GPIO_Port_Ctl(uint8_t Port,uint8_t PMCn, uint8_t Field,_Bool Bus){
       if(Bus == APB_BUS){
         switch(Port){
         case GPIO_PORT_A:
-            GPIO_PORTX_PCTL_R = PORTA_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTA_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         case GPIO_PORT_B:
-            GPIO_PORTX_PCTL_R = PORTB_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTB_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         case GPIO_PORT_C:
-            GPIO_PORTX_PCTL_R = PORTC_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTC_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         case GPIO_PORT_D:
-            GPIO_PORTX_PCTL_R = PORTD_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTD_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         case GPIO_PORT_E:
-            GPIO_PORTX_PCTL_R = PORTE_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTE_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         case GPIO_PORT_F:
-            GPIO_PORTX_PCTL_R = PORTF_APB_ADDRESS;
+            GPIO_PORTX_PCTL_R = PORTF_GPIO_APB_ADDRESS + GPIO_CTL_OFFSET;
         break;
         default:
         break;
@@ -192,22 +201,22 @@ void GPIO_Port_Ctl(uint8_t Port,uint8_t PMCn, uint8_t Field,_Bool Bus){
       else{
           switch(Port){
           case GPIO_PORT_A:
-              GPIO_PORTX_PCTL_R = PORTA_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTA_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           case GPIO_PORT_B:
-              GPIO_PORTX_PCTL_R = PORTB_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTB_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           case GPIO_PORT_C:
-              GPIO_PORTX_PCTL_R = PORTC_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTC_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           case GPIO_PORT_D:
-              GPIO_PORTX_PCTL_R = PORTD_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTD_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           case GPIO_PORT_E:
-              GPIO_PORTX_PCTL_R = PORTE_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTE_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           case GPIO_PORT_F:
-              GPIO_PORTX_PCTL_R = PORTF_AHB_ADDRESS;
+              GPIO_PORTX_PCTL_R = PORTF_GPIO_AHB_ADDRESS + GPIO_CTL_OFFSET;
           break;
           default:
           break;
@@ -248,4 +257,71 @@ void GPIO_Port_Ctl(uint8_t Port,uint8_t PMCn, uint8_t Field,_Bool Bus){
       }
 
 }
+
+
+void GPIO_Digital_Enable(uint8_t Port, uint8_t Pin, _Bool Bus, _Bool Enable){
+
+    uint32_t GPIO_PORTX_DEN_R = 0x00;
+
+    if( Port == GPIO_PORT_A || Port == GPIO_PORT_B || Port == GPIO_PORT_C || Port == GPIO_PORT_D
+         || Port == GPIO_PORT_E || Port == GPIO_PORT_F ){
+
+        if(Bus == APB_BUS){
+            switch(Port){
+               case GPIO_PORT_A:
+                   GPIO_PORTX_DEN_R = PORTA_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_B:
+                   GPIO_PORTX_DEN_R = PORTB_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_C:
+                   GPIO_PORTX_DEN_R = PORTC_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_D:
+                   GPIO_PORTX_DEN_R = PORTD_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_E:
+                   GPIO_PORTX_DEN_R = PORTE_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_F:
+                   GPIO_PORTX_DEN_R = PORTF_GPIO_APB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               default:
+               break;
+          }
+        }
+        else{
+            switch(Port){
+               case GPIO_PORT_A:
+                   GPIO_PORTX_DEN_R = PORTA_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_B:
+                   GPIO_PORTX_DEN_R = PORTB_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_C:
+                   GPIO_PORTX_DEN_R = PORTC_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_D:
+                   GPIO_PORTX_DEN_R = PORTD_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_E:
+                   GPIO_PORTX_DEN_R = PORTE_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               case GPIO_PORT_F:
+                   GPIO_PORTX_DEN_R = PORTF_GPIO_AHB_ADDRESS + GPIO_DEN_OFFSET;
+               break;
+               default:
+               break;
+          }
+        }
+
+        if(Enable == ENABLE){
+        (*((volatile  uint32_t*)GPIO_PORTX_DEN_R)) |= Pin;
+        }
+        else{
+        (*((volatile  uint32_t*)GPIO_PORTX_DEN_R)) &= ~(Pin);
+        }
+    }
+}
+
 

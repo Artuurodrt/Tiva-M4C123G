@@ -117,7 +117,8 @@ void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode)
 /*
  * Register: GPIO Port Control (GPIOPCTL)
  *
- * Parameters   : PMCn - Port Mux Control (PMC0 - PMC7)
+ * Parameters   : Port - GPIO Port (A-F)
+ *                PMCn - Port Mux Control (PMC0 - PMC7)
  *                Field - Field to control the configuration for GPIO pin
  *                Bus - Advanced Peripheral Bus (APB)/Advanced High-Performance Bus (AHB)
  * Return Value : Nothing
@@ -130,5 +131,30 @@ void GPIO_AF_Select(uint8_t Port, uint8_t associated_Pin, _Bool Bus, _Bool Mode)
  *
  */
 void GPIO_Port_Ctl(uint8_t port, uint8_t PMCn, uint8_t Field,_Bool Bus);
+
+
+/*
+ * Register: GPIO Digital Enable (GPIODEN)
+ *
+ * Parameters   : Port - GPIO Port (A-F)
+ *                Pin - Corresponding pin
+ *                Bus - Advanced Peripheral Bus (APB)/Advanced High-Performance Bus (AHB)
+ *                Enable - The digital functions for the corresponding pin are Enable/Disable
+ * Return Value : Nothing
+ *
+ * Description:
+ *
+ * The GPIODEN register is the digital enable register. By default,
+ * all GPIO signals except those listed below are configured out of
+ * reset to be undriven (tristate). Their digital function is disabled;
+ * they do not drive a logic value on the pin and they do not
+ * allow the pin voltage into the GPIO receiver.
+ *
+ */
+void GPIO_Digital_Enable(uint8_t Port, uint8_t Pin, _Bool Bus, _Bool Enable);
+
+
+
+
 
 #endif /* PWM_H_ */

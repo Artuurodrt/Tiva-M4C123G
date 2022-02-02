@@ -1,4 +1,4 @@
-#include "inc/tm4c123gh6pm.h"
+#include "tm4c123gh6pm.h"
 #include "stdint.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -31,7 +31,8 @@ int main(){
     GPIO_Port_Ctl(GPIO_PORT_B,PMC6, 0x04,APB_BUS);
 
     // Enable the GPIO pins (p.682)
-    GPIO_PORTB_DEN_R |= (1u << 6);
+    GPIO_Digital_Enable(GPIO_PORT_B, AS_PIN_6, APB_BUS, ENABLE);
+
 
 /*6. Configure the PWM generator for countdown mode with immediate updates to the parameters */
 
